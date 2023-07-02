@@ -1,6 +1,6 @@
 package com.mackittipat.macemarket.productservice.controller;
 
-import com.mackittipat.macemarket.productservice.model.ErrorResponseModel;
+import com.mackittipat.macemarket.productservice.dto.ApiResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ErrorController {
 
   @ExceptionHandler(Exception.class)
-  ResponseEntity postNotFound(Exception ex) {
+  ResponseEntity errorHandler(Exception ex) {
     return new ResponseEntity<>(
-        ErrorResponseModel.builder().message(ex.getMessage()).build(),
+        ApiResponseDto.builder()
+            .status(HttpStatus.INTERNAL_SERVER_ERROR.name())
+            .message(ex.getMessage())
+            .build(),
         HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
