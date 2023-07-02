@@ -1,0 +1,30 @@
+package com.mackittipat.macemarket.productservice.entity;
+
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+@Builder
+@Document(collection = "categories")
+public class Category {
+
+  @Id private String id;
+  private String name;
+
+  @Field(value = "subCategories")
+  private List<Category> subCategories;
+
+  private LocalDateTime createdDateTime;
+  private LocalDateTime updatedDatetime;
+
+  public void setName(String name) {
+    this.name = name;
+    this.id = name.replaceAll(" ", "").toLowerCase();
+  }
+}
