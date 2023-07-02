@@ -1,6 +1,5 @@
 package com.mackittipat.macemarket.productservice.dto;
 
-import com.mackittipat.macemarket.productservice.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,12 @@ public class CategoryDto {
 
   private String id;
   private String name;
-  private List<Category> subCategories;
+  private List<CategoryDto> subCategories;
   private LocalDateTime createdDateTime;
   private LocalDateTime updatedDatetime;
+
+  public void setName(String name) {
+    this.name = name;
+    this.id = name.replaceAll(" ", "").toLowerCase();
+  }
 }

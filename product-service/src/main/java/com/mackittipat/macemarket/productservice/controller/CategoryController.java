@@ -1,10 +1,11 @@
 package com.mackittipat.macemarket.productservice.controller;
 
-import com.mackittipat.macemarket.productservice.dto.ApiResponseDto;
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,18 +23,19 @@ public class CategoryController {
   @Autowired private CategoryService categoryService;
 
   @GetMapping("{id}")
-  public Mono<ApiResponseDto<CategoryDto>> create(@PathVariable String id) {
-    return categoryService.findById(id)
-            .map(catDto -> ApiResponseDto.<CategoryDto>builder().data(catDto).build());
+  public Mono<ResponseEntity<CategoryDto>> create(@PathVariable String id) {
+    return categoryService
+        .findById(id)
+        .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
+        .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
-
   @PostMapping("")
-  public Mono<ApiResponseDto<CategoryDto>> create(@RequestBody CategoryDto categoryDto) {
+  public Mono<ResponseEntity<CategoryDto>> create(@RequestBody CategoryDto categoryDto) {
     log.info("Creating a category, {}", categoryDto.toString());
     return categoryService
         .create(categoryDto)
-        .map(catDto -> ApiResponseDto.<CategoryDto>builder().data(catDto).build())
+        .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
         .doOnError(
             error ->
                 log.info(
@@ -43,15 +45,15 @@ public class CategoryController {
   }
 
   @PutMapping("")
-  public Mono<ApiResponseDto<CategoryDto>> update(@RequestBody CategoryDto categoryDto) {
+  public Mono<ResponseEntity<CategoryDto>> update(@RequestBody CategoryDto categoryDto) {
     log.info("Updating a category, {}", categoryDto.toString());
     return categoryService
         .edit(categoryDto)
-        .map(catDto -> ApiResponseDto.<CategoryDto>builder().data(catDto).build())
+        .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
         .doOnError(
             error ->
                 log.info(
-                    "Error when update Category. Category={}, Error={}",
+                    "Error when update Category. {}, Error={}",
                     categoryDto.toString(),
                     error.getMessage()));
   }

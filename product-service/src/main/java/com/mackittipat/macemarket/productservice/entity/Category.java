@@ -26,9 +26,4 @@ public class Category {
 
   private LocalDateTime createdDateTime;
   private LocalDateTime updatedDatetime;
-
-  public void setName(String name) {
-    this.name = name;
-    this.id = name.replaceAll(" ", "").toLowerCase();
-  }
 }
