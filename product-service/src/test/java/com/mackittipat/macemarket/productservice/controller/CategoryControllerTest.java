@@ -141,7 +141,7 @@ class CategoryControllerTest {
   @Test
   void update() {
     CategoryDto categoryDto = CategoryDto.builder().name("Electronic").build();
-    Mockito.when(categoryService.edit(Mockito.any(CategoryDto.class)))
+    Mockito.when(categoryService.update(Mockito.any(CategoryDto.class)))
         .thenReturn(Mono.just(categoryDto));
 
     webTestClient

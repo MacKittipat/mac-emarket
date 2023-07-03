@@ -12,6 +12,6 @@ public interface CategoryService {
 
   Mono<CategoryDto> create(CategoryDto categoryDto);
 
-  Mono<CategoryDto> edit(CategoryDto categoryDto);
+  Mono<CategoryDto> update(CategoryDto categoryDto);
 
 }

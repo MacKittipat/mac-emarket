@@ -115,12 +115,12 @@ class CategoryServiceImplTest {
   }
 
   @Test
-  void edit() {
+  void update() {
     Category category =
         Category.builder().name("Electronic").createdDateTime(LocalDateTime.now()).build();
 
     Mockito.when(categoryRepo.save(Mockito.any(Category.class))).thenReturn(Mono.just(category));
-    Mono<CategoryDto> categoryDtoMono = categoryService.edit(categoryMapper.entityToDto(category));
+    Mono<CategoryDto> categoryDtoMono = categoryService.update(categoryMapper.entityToDto(category));
 
     StepVerifier.create(categoryDtoMono)
         .expectNextMatches(categoryDto -> categoryDto.getName().equals(category.getName()))

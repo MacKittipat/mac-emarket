@@ -42,7 +42,7 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public Mono<CategoryDto> edit(CategoryDto categoryDto) {
+  public Mono<CategoryDto> update(CategoryDto categoryDto) {
     categoryDto.setUpdatedDatetime(LocalDateTime.now());
 
     return categoryRepo

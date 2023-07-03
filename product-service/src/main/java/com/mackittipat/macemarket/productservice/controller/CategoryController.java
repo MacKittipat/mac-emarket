@@ -54,7 +54,7 @@ public class CategoryController {
   public Mono<ResponseEntity<CategoryDto>> update(@RequestBody CategoryDto categoryDto) {
     log.info("Updating a category, {}", categoryDto.toString());
     return categoryService
-        .edit(categoryDto)
+        .update(categoryDto)
         .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
         .doOnError(
             error ->
