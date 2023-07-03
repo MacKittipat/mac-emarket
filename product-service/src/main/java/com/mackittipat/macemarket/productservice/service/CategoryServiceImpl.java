@@ -6,6 +6,7 @@ import com.mackittipat.macemarket.productservice.repos.CategoryRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,12 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Mono<CategoryDto> findById(String id) {
     return categoryRepo.findById(id)
+            .map(category -> categoryMapper.entityToDto(category));
+  }
+
+  @Override
+  public Flux<CategoryDto> findAll() {
+    return categoryRepo.findAll()
             .map(category -> categoryMapper.entityToDto(category));
   }
 

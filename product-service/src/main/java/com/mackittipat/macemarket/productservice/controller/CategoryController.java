@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -23,11 +24,16 @@ public class CategoryController {
   @Autowired private CategoryService categoryService;
 
   @GetMapping("{id}")
-  public Mono<ResponseEntity<CategoryDto>> create(@PathVariable String id) {
+  public Mono<ResponseEntity<CategoryDto>> findById(@PathVariable String id) {
     return categoryService
         .findById(id)
         .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
         .defaultIfEmpty(ResponseEntity.notFound().build());
+  }
+
+  @GetMapping()
+  public Flux<CategoryDto> findAll() {
+    return categoryService.findAll();
   }
 
   @PostMapping("")

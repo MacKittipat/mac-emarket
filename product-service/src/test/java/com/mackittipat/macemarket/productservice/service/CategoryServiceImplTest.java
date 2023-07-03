@@ -14,13 +14,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.time.LocalDateTime;
 
 @Slf4j
-// @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class CategoryServiceImplTest {
 
@@ -32,7 +32,58 @@ class CategoryServiceImplTest {
 
   @Test
   void findById() {
+    String id = "id";
+    Category category = Category.builder().id(id).name("Electronic").build();
+    Mockito.when(categoryRepo.findById(Mockito.anyString())).thenReturn(Mono.just(category));
 
+    Mono<CategoryDto> categoryDtoMono = categoryService.findById(id);
+
+    StepVerifier.create(categoryDtoMono)
+            .expectNextMatches(categoryDto -> categoryDto.getName().equals(category.getName()))
+            .verifyComplete();
+    Mockito.verify(categoryRepo, Mockito.times(1)).findById(Mockito.anyString());
+  }
+
+  @Test
+  void findByIdNotFound() {
+    String id = "id";
+    Mockito.when(categoryRepo.findById(Mockito.anyString())).thenReturn(Mono.empty());
+
+    Mono<CategoryDto> categoryDtoMono = categoryService.findById(id);
+
+    StepVerifier.create(categoryDtoMono)
+            .expectNextCount(0)
+            .verifyComplete();
+    Mockito.verify(categoryRepo, Mockito.times(1)).findById(Mockito.anyString());
+  }
+
+  @Test
+  void findAll() {
+    Flux<Category> categoryFlux =
+        Flux.just(
+            Category.builder().id("id1").name("Electronic").build(),
+            Category.builder().id("id2").name("Beauty").build());
+    Mockito.when(categoryRepo.findAll()).thenReturn(categoryFlux);
+
+    Flux<CategoryDto> categoryDtoFlux = categoryService.findAll();
+
+    StepVerifier.create(categoryDtoFlux)
+            .expectNextMatches(categoryDto -> categoryDto.getName().equals("Electronic"))
+            .expectNextMatches(categoryDto -> categoryDto.getName().equals("Beauty"))
+            .verifyComplete();
+    Mockito.verify(categoryRepo, Mockito.times(1)).findAll();
+  }
+
+  @Test
+  void findAllNotFound() {
+    Mockito.when(categoryRepo.findAll()).thenReturn(Flux.empty());
+
+    Flux<CategoryDto> categoryDtoFlux = categoryService.findAll();
+
+    StepVerifier.create(categoryDtoFlux)
+            .expectNextCount(0)
+            .verifyComplete();
+    Mockito.verify(categoryRepo, Mockito.times(1)).findAll();
   }
 
   @Test
