@@ -32,11 +32,10 @@ class CategoryServiceImplTest {
 
   @Test
   void findById() {
-    String id = "id";
-    Category category = Category.builder().id(id).name("Electronic").build();
+    Category category = Category.builder().name("Electronic").build();
     Mockito.when(categoryRepo.findById(Mockito.anyString())).thenReturn(Mono.just(category));
 
-    Mono<CategoryDto> categoryDtoMono = categoryService.findById(id);
+    Mono<CategoryDto> categoryDtoMono = categoryService.findById(category.getName().toLowerCase());
 
     StepVerifier.create(categoryDtoMono)
             .expectNextMatches(categoryDto -> categoryDto.getName().equals(category.getName()))
@@ -46,10 +45,9 @@ class CategoryServiceImplTest {
 
   @Test
   void findByIdNotFound() {
-    String id = "id";
     Mockito.when(categoryRepo.findById(Mockito.anyString())).thenReturn(Mono.empty());
 
-    Mono<CategoryDto> categoryDtoMono = categoryService.findById(id);
+    Mono<CategoryDto> categoryDtoMono = categoryService.findById("category");
 
     StepVerifier.create(categoryDtoMono)
             .expectNextCount(0)

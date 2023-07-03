@@ -28,7 +28,7 @@ public class CategoryController {
     return categoryService
         .findById(id)
         .map(catDto -> ResponseEntity.status(HttpStatus.OK).body(catDto))
-        .defaultIfEmpty(ResponseEntity.notFound().build());
+        .defaultIfEmpty(ResponseEntity.noContent().build());
   }
 
   @GetMapping()
