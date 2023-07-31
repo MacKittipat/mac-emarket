@@ -2,7 +2,7 @@ package com.mackittipat.macemarket.productservice.controller;
 
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
-import com.mackittipat.macemarket.productservice.service.CategoryServiceImpl;
+import com.mackittipat.macemarket.productservice.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;

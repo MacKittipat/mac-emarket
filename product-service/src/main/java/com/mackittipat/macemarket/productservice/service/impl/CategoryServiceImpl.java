@@ -1,8 +1,9 @@
-package com.mackittipat.macemarket.productservice.service;
+package com.mackittipat.macemarket.productservice.service.impl;
 
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
 import com.mackittipat.macemarket.productservice.mapper.CategoryMapper;
 import com.mackittipat.macemarket.productservice.repos.CategoryRepo;
+import com.mackittipat.macemarket.productservice.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

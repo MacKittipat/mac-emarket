@@ -18,13 +18,13 @@ public class ProductController {
   public Mono<Product> createProduct() {
     log.info("Creating a new product");
     return Mono.just(
-        new Product("sku1", "MacBook Pro 2023", "MacBook Prod 2023, CPU M2 Pro, RAM 16GB", 99999D));
+        new Product());
   }
 
   @GetMapping("{id}")
   public Mono<Product> getProductById(@PathVariable String id) {
     log.info("Finding product with id = {}", id);
     return Mono.just(
-        new Product("sku1", "MacBook Pro 2023", "MacBook Prod 2023, CPU M2 Pro, RAM 16GB", 99999D));
+        new Product());
   }
 }

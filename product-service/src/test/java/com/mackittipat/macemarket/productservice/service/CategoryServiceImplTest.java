@@ -4,6 +4,7 @@ import com.mackittipat.macemarket.productservice.dto.CategoryDto;
 import com.mackittipat.macemarket.productservice.entity.Category;
 import com.mackittipat.macemarket.productservice.mapper.CategoryMapperImpl;
 import com.mackittipat.macemarket.productservice.repos.CategoryRepo;
+import com.mackittipat.macemarket.productservice.service.impl.CategoryServiceImpl;
 import com.mongodb.MongoWriteException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
