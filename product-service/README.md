@@ -1,7 +1,12 @@
 # product-service 
 
-### MongoDB 
+## Setup 
 
+### Required 
+* Java 11
+* Docker 
+
+### MongoDB 
 ```
 docker run --name mac-mongo -p 27017:27017 --env=MONGO_INITDB_ROOT_USERNAME=root --env=MONGO_INITDB_ROOT_PASSWORD=password -d mongo:latest
 
@@ -10,6 +15,7 @@ db.createCollection('products')
 db.createCollection('categories')
 ```
 
+## Run 
 
 ### Init Data 
 ```
@@ -88,3 +94,9 @@ curl --location 'http://localhost:8080/mac-emarket/api/categories' \
 }'
 
 ```
+
+### API Docs
+* Using https://springdoc.org/v1/
+* Open API Docs
+  * http://localhost:8080/mac-emarket/api/v3/api-docs
+  * http://localhost:8080/mac-emarket/api/webjars/swagger-ui/index.html
