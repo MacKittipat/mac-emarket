@@ -100,3 +100,15 @@ curl --location 'http://localhost:8080/mac-emarket/api/categories' \
 * Open API Docs
   * http://localhost:8080/mac-emarket/api/v3/api-docs
   * http://localhost:8080/mac-emarket/api/webjars/swagger-ui/index.html
+
+```shell script
+
+curl --location 'http://localhost:8080/mac-emarket/api/products' \
+--header 'Content-Type: application/json' \
+--data '{
+    "sku": "sku2",
+    "name": "MacBook Pro 2023",
+    "description": "Latest MacBook Prod 2023.",
+    "price": 79000
+}'
+```
