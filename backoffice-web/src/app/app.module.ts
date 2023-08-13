@@ -8,6 +8,8 @@ import { CateogryListComponent } from './pages/cateogry-list/cateogry-list.compo
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CateogryInfoComponent } from './pages/cateogry-info/cateogry-info.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { CateogryInfoComponent } from './pages/cateogry-info/cateogry-info.compo
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NoopAnimationsModule,
+    TreeTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

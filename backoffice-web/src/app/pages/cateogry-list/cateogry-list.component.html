@@ -1,29 +1,50 @@
-<h2>Cateogry</h2>
-<form [formGroup]="searchForm" (ngSubmit)="search()">
-  <div class="row">
-      <div class="col-1">
-        <select formControlName="fieldName" class="form-select">
-          <option *ngFor="let searchField of searchFields" value="{{searchField}}">{{searchField}}</option>
-        </select>
-      </div>
-      <div class="col-2">
-        <input type="text" formControlName="fieldValue" class="form-control" />
-      </div>
-      <div class="col-1">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-  </div>
-</form>
-
-
-<div *ngFor="let category of categories">
-  <a routerLink="info/{{category.id}}">{{category.id}}</a> - {{category.name}}
-  <div *ngFor="let categoryL2 of category.subCategories" style="background-color: antiquewhite;">
-    {{categoryL2.id}} - {{categoryL2.name}}
-    <div *ngFor="let categoryL3 of categoryL2.subCategories" style="background-color: aquamarine;">
-      {{categoryL3.id}} - {{categoryL3.name}}
-    </div>
+<div class="row">
+  <div class="col">
+    <h2>Cateogry</h2>
   </div>
 </div>
 
+<form [formGroup]="searchForm" (ngSubmit)="search()">
+  <div class="row">
+    <div class="col-1">
+      <select formControlName="fieldName" class="form-select">
+        <option *ngFor="let searchField of searchFields" value="{{searchField}}">{{searchField}}</option>
+      </select>
+    </div>
+    <div class="col-2">
+      <input type="text" formControlName="fieldValue" class="form-control" />
+    </div>
+    <div class="col-1">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
 
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <p-treeTable [value]="categoriesTreeNode" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [autoLayout]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>No of Product</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+          <tr [ttRow]="rowNode">
+            <td>
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              {{ rowData.id }}
+            </td>
+            <td>{{ rowData.name }}</td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </ng-template>
+      </p-treeTable>
+  </div>
+</div>
