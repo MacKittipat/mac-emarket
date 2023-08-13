@@ -36,6 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
   public Mono<CategoryDto> create(CategoryDto categoryDto) {
     categoryDto.setId(categoryDto.getName().replaceAll(" ", "").toLowerCase());
     categoryDto.setCreatedDateTime(LocalDateTime.now());
+    categoryDto.setUpdatedDatetime(LocalDateTime.now());
 
     return categoryRepo
         .insert(categoryMapper.dtoToEntity(categoryDto))

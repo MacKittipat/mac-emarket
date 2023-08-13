@@ -24,24 +24,31 @@ curl --location 'http://localhost:8080/mac-emarket/api/categories' \
 --header 'Content-Type: application/json' \
 --data '{
     "name": "Electronic",
+    "active": true, 
     "subCategories": [
         {
-            "name": "Laptop"
+            "name": "Laptop",
+            "active": true
         },
         {
-            "name": "Mobile"
+            "name": "Mobile",
+            "active": true
         },
         {
             "name": "Computer",
+            "active": true,
             "subCategories": [
                 {
-                    "name": "All In One"
+                    "name": "All In One",
+                    "active": true
                 },
                 {
-                    "name": "Desktop Computer"
+                    "name": "Desktop Computer",
+                    "active": true
                 },
                 {
-                    "name": "Gaming Computer"
+                    "name": "Gaming Computer",
+                    "active": true
                 }
             ]
         }
@@ -53,40 +60,51 @@ curl --location 'http://localhost:8080/mac-emarket/api/categories' \
 --header 'Content-Type: application/json' \
 --data '{
     "name": "Beauty",
+    "active": true,
     "subCategories": [
         {
             "name": "Face",
+            "active": true,
             "subCategories": [
                 {
-                    "name": "Serum"
+                    "name": "Serum",
+                    "active": true
                 },
                 {
-                    "name": "Moisturiser"
+                    "name": "Moisturiser",
+                    "active": true
                 },
                 {
-                    "name": "Cleanser"
+                    "name": "Cleanser",
+                    "active": true
                 }
             ]
         },
         {
             "name": "Body",
+            "active": true,
             "subCategories": [
                 {
-                    "name": "Soap"
+                    "name": "Soap",
+                    "active": true
                 },
                 {
-                    "name": "Sun Block"
+                    "name": "Sun Block",
+                    "active": true
                 }
             ]
         },
         {
             "name": "Hair",
+            "active": true,
             "subCategories": [
                 {
-                    "name": "Shampoo"
+                    "name": "Shampoo",
+                    "active": true
                 },
                 {
-                    "name": "Hair Treatment"
+                    "name": "Hair Treatment",
+                    "active": true
                 }
             ]
         }
