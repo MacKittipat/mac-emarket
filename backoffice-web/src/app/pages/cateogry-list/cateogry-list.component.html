@@ -1,10 +1,18 @@
 <h2>Cateogry</h2>
 <form [formGroup]="searchForm" (ngSubmit)="search()">
-  <select formControlName="fieldName">
-    <option *ngFor="let searchField of searchFields" value="{{searchField}}">{{searchField}}</option>
-  </select>
-  <input type="text" formControlName="fieldValue" />
-  <button type="submit">Submit</button>
+  <div class="row">
+      <div class="col-1">
+        <select formControlName="fieldName" class="form-select">
+          <option *ngFor="let searchField of searchFields" value="{{searchField}}">{{searchField}}</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <input type="text" formControlName="fieldValue" class="form-control" />
+      </div>
+      <div class="col-1">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </div>
 </form>
 
 
