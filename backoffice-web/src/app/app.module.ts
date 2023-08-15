@@ -10,13 +10,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CateogryInfoComponent } from './pages/cateogry-info/cateogry-info.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeTableModule } from 'primeng/treetable';
+import { CateogryCreateComponent } from './pages/cateogry-create/cateogry-create.component';
+import { CateogryUpdateComponent } from './pages/cateogry-update/cateogry-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CateogryListComponent,
-    CateogryInfoComponent
+    CateogryInfoComponent,
+    CateogryCreateComponent,
+    CateogryUpdateComponent
   ],
   imports: [
     BrowserModule,

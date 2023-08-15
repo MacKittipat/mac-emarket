@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col">
+    <h2>Cateogry</h2>
+  </div>
+</div>
+
+<form>
+  <div class="mb-3 row">
+    <label for="txtName" class="col-sm-2 col-form-label">Name</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="txtName" value="Category">
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="txtDesc" class="col-sm-2 col-form-label">Description</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="txtDesc">
+    </div>
+  </div>
+  <a (click)="add()" class="btn btn-primary">Add</a>
+  <div class="mb-3 row">
+    <label for="txtCategoryL2" class="col-sm-2 col-form-label">Category L2</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="txtCategoryL2">
+    </div>
+  </div>
+  <!-- <div class="mb-3 row">
+    <label for="txtCategoryL3" class="col-sm-2 col-form-label">Category L2</label>
+    <div class="col-sm-3">
+      <input type="text" class="form-control" id="txtCategoryL3">
+    </div>
+  </div> -->
+
+  <div *ngFor="let cat of getCategoryL2().controls; let i=index" [formGroupName]="i">
+      <div>
+        <input type="text" formControlName="name" />
+        <input type="text" formControlName="description" />
+      </div>
+  </div>
+</form>
