@@ -63,6 +63,4 @@ public class CategoryController {
                     categoryDto.toString(),
                     error.getMessage()));
   }
-
-
 }

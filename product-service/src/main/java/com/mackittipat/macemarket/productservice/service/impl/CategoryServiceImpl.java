@@ -37,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     categoryDto.setId(categoryDto.getName().replaceAll(" ", "").toLowerCase());
     categoryDto.setCreatedDateTime(LocalDateTime.now());
     categoryDto.setUpdatedDatetime(LocalDateTime.now());
+    categoryDto.setActive(true);
 
     return categoryRepo
         .insert(categoryMapper.dtoToEntity(categoryDto))
