@@ -16,4 +16,12 @@ export class CategoryService {
   getCategoryById(id: string) {
     return this.http.get<Category>(environment.apiUrl + 'categories/' + id);
   }
+
+  create(category: Category) {
+    return this.http.post<Category>(environment.apiUrl + 'categories', category);
+  }
+
+  update(category: Category) {
+    return this.http.put<Category>(environment.apiUrl + 'categories', category);
+  }
 }

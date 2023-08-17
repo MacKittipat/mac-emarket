@@ -4,37 +4,46 @@
   </div>
 </div>
 
-<form>
+<div class="row">
+  <div class="col">
+    <div class="alert alert-success" role="alert" *ngIf="showSuccess">
+      Create success
+    </div>
+
+    <div class="alert alert-danger" role="alert" *ngIf="showError">
+      Create failed
+    </div>
+  </div>
+</div>
+
+<form [formGroup]="createCategoryForm" (ngSubmit)="create()" class=" needs-validation was-validation" novalidate>
   <div class="mb-3 row">
     <label for="txtName" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="txtName" value="Category">
+      <input type="text" class="form-control" [ngClass]="{'is-invalid': name?.invalid && (name?.dirty || name?.touched)}" formControlName="name" id="txtName" value="" placeholder="Name">
+      <div *ngIf="name?.errors?.['required']" class="invalid-feedback">
+        Name is required.
+      </div>
     </div>
   </div>
   <div class="mb-3 row">
     <label for="txtDesc" class="col-sm-2 col-form-label">Description</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="txtDesc">
+      <input type="text" class="form-control" formControlName="description" id="txtDesc" placeholder="Description">
     </div>
   </div>
-  <a (click)="add()" class="btn btn-primary">Add</a>
   <div class="mb-3 row">
-    <label for="txtCategoryL2" class="col-sm-2 col-form-label">Category L2</label>
+    <label for="ddlParentCategory" class="col-sm-2 col-form-label">Parent Category</label>
     <div class="col-sm-3">
-      <input type="text" class="form-control" id="txtCategoryL2">
+      <select class="form-select" formControlName="parentCategory" id="ddlParentCategory">
+        <option value="root">Root</option>
+        <option *ngFor="let parentCategory of parentCategories" [value]="parentCategory.id">{{ parentCategory.name }}</option>
+      </select>
     </div>
   </div>
-  <!-- <div class="mb-3 row">
-    <label for="txtCategoryL3" class="col-sm-2 col-form-label">Category L2</label>
-    <div class="col-sm-3">
-      <input type="text" class="form-control" id="txtCategoryL3">
+  <div class="mb-3 row">
+    <div class="col-sm-5">
+      <button type="submit" class="btn btn-primary float-end">Save</button>
     </div>
-  </div> -->
-
-  <div *ngFor="let cat of getCategoryL2().controls; let i=index" [formGroupName]="i">
-      <div>
-        <input type="text" formControlName="name" />
-        <input type="text" formControlName="description" />
-      </div>
   </div>
 </form>
