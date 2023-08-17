@@ -6,6 +6,7 @@ import com.mackittipat.macemarket.productservice.repos.CategoryRepo;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public Flux<CategoryDto> findAll() {
-    return categoryRepo.findAll()
+    return categoryRepo.findAll(Sort.by(Sort.Direction.ASC, "name"))
             .map(category -> categoryMapper.entityToDto(category));
   }
 

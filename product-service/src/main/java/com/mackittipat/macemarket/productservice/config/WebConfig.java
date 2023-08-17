@@ -14,6 +14,7 @@ public class WebConfig implements WebFluxConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedOrigins(corsAllowUrl);
     }
 }
