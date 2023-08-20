@@ -14,4 +14,6 @@ public interface CategoryService {
 
   Mono<CategoryDto> update(CategoryDto categoryDto);
 
+  Mono<Void> delete(String id);
+
 }

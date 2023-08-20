@@ -53,4 +53,9 @@ public class CategoryServiceImpl implements CategoryService {
         .save(categoryMapper.dtoToEntity(categoryDto))
         .map(category -> categoryMapper.entityToDto(category));
   }
+
+  @Override
+  public Mono<Void> delete(String id) {
+    return categoryRepo.deleteById(id);
+  }
 }
