@@ -16,6 +16,7 @@ public class CategoryDto {
 
   private String id;
   private String name;
+  private int level;
   private String description;
   private List<CategoryDto> subCategories;
   private LocalDateTime createdDateTime;

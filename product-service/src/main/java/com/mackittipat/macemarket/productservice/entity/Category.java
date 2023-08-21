@@ -20,6 +20,7 @@ public class Category {
 
   @Id private String id;
   private String name;
+  private int level;
   private String description;
   @Field(value = "subCategories")
   private List<Category> subCategories;
