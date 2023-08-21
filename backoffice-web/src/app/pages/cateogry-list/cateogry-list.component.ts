@@ -78,9 +78,7 @@ export class CateogryListComponent implements OnInit {
     this.categoryService.delete(id).subscribe(res => {
       this.categoriesTreeNode.map((category, i) => {
         if (id === category.data.id) {
-          console.log(i);
           this.categoriesTreeNode.splice(i, 1);
-          console.log(this.categoriesTreeNode)
           this.categoriesTreeNode = [...this.categoriesTreeNode];
         }
       });
