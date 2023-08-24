@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Builder
@@ -22,8 +20,8 @@ public class Category {
   private String name;
   private int level;
   private String description;
-  @Field(value = "subCategories")
-  private List<Category> subCategories;
+  private Category parentLevel0;
+  private Category parentLevel1;
   private LocalDateTime createdDateTime;
   private LocalDateTime updatedDatetime;
   private boolean active;

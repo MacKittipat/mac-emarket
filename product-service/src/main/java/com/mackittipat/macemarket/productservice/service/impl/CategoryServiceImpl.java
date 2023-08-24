@@ -1,6 +1,7 @@
 package com.mackittipat.macemarket.productservice.service.impl;
 
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
+import com.mackittipat.macemarket.productservice.dto.ParentCategoryDto;
 import com.mackittipat.macemarket.productservice.mapper.CategoryMapper;
 import com.mackittipat.macemarket.productservice.repos.CategoryRepo;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Slf4j
 @Service
@@ -23,14 +25,57 @@ public class CategoryServiceImpl implements CategoryService {
 
   @Override
   public Mono<CategoryDto> findById(String id) {
-    return categoryRepo.findById(id)
-            .map(category -> categoryMapper.entityToDto(category));
+    return categoryRepo
+        .findById(id)
+        .map(category -> categoryMapper.entityToDto(category))
+        .flatMap(
+            category -> {
+              if (category.getLevel() == 1) {
+                return categoryRepo
+                    .findById(category.getParentLevel0().getId())
+                    .map(
+                        parentCategoryL0 -> {
+                          category.setParentLevel0(categoryMapper.entityToDto(parentCategoryL0));
+                          return category;
+                        });
+              } else if (category.getLevel() == 2) {
+                return categoryRepo
+                    .findAllById(
+                        Arrays.asList(
+                            category.getParentLevel0().getId(), category.getParentLevel1().getId()))
+                    .map(
+                        parentCategory -> {
+                          if (parentCategory.getLevel() == 0) {
+                            category.setParentLevel0(categoryMapper.entityToDto(parentCategory));
+                            category.getParentLevel0().setParentLevel0(null);
+                          }
+                          if (parentCategory.getLevel() == 1) {
+                            category.setParentLevel1(categoryMapper.entityToDto(parentCategory));
+                            category.getParentLevel0().setParentLevel0(null);
+                            category.getParentLevel1().setParentLevel0(null);
+                            category.getParentLevel1().setParentLevel1(null);
+                          }
+                          return category;
+                        })
+                    .last();
+              }
+
+              return Mono.just(category);
+            });
   }
 
   @Override
   public Flux<CategoryDto> findAll() {
-    return categoryRepo.findAll(Sort.by(Sort.Direction.ASC, "name"))
-            .map(category -> categoryMapper.entityToDto(category));
+    return categoryRepo
+        .findAll(Sort.by(Sort.Direction.ASC, "name"))
+        .map(category -> categoryMapper.entityToDto(category));
+  }
+
+  @Override
+  public Flux<ParentCategoryDto> findAllParent() {
+    return categoryRepo
+        .findAllParent(Sort.by(Sort.Direction.ASC, "name"))
+        .map(category -> categoryMapper.entityToParentCategoryDto(category));
   }
 
   @Override

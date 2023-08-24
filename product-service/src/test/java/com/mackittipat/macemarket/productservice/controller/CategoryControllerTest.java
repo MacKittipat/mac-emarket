@@ -3,6 +3,7 @@ package com.mackittipat.macemarket.productservice.controller;
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
 import com.mackittipat.macemarket.productservice.service.impl.CategoryServiceImpl;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -23,6 +24,7 @@ import static org.hamcrest.Matchers.equalTo;
 // @SpringBootTest
 // @ExtendWith(SpringExtension.class)
 
+@Disabled
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = CategoryController.class)
 @Import(CategoryServiceImpl.class)

@@ -1,6 +1,7 @@
 package com.mackittipat.macemarket.productservice.controller;
 
 import com.mackittipat.macemarket.productservice.dto.CategoryDto;
+import com.mackittipat.macemarket.productservice.dto.ParentCategoryDto;
 import com.mackittipat.macemarket.productservice.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,11 @@ public class CategoryController {
   @GetMapping()
   public Flux<CategoryDto> findAll() {
     return categoryService.findAll();
+  }
+
+  @GetMapping("parents")
+  public Flux<ParentCategoryDto> findAllParent() {
+    return categoryService.findAllParent();
   }
 
   @PostMapping("")

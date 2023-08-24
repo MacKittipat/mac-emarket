@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -18,13 +17,9 @@ public class CategoryDto {
   private String name;
   private int level;
   private String description;
-  private List<CategoryDto> subCategories;
+  private CategoryDto parentLevel0;
+  private CategoryDto parentLevel1;
   private LocalDateTime createdDateTime;
   private LocalDateTime updatedDatetime;
   private boolean active;
-
-  public void setName(String name) {
-    this.name = name;
-    this.id = name.replaceAll(" ", "").toLowerCase();
-  }
 }

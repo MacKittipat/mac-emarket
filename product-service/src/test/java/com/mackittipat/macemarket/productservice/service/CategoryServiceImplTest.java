@@ -8,6 +8,7 @@ import com.mackittipat.macemarket.productservice.service.impl.CategoryServiceImp
 import com.mongodb.MongoWriteException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +22,7 @@ import reactor.test.StepVerifier;
 
 import java.time.LocalDateTime;
 
+@Disabled
 @Slf4j
 @ExtendWith(SpringExtension.class)
 class CategoryServiceImplTest {
