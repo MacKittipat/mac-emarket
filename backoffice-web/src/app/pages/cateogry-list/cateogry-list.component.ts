@@ -16,8 +16,6 @@ export class CateogryListComponent implements OnInit {
 
   categoriesTreeNode!: TreeNode[];
 
-  files!: TreeNode[];
-
   searchForm = this.fb.group({
     fieldName: ['id'],
     fieldValue: [''],
@@ -32,41 +30,18 @@ export class CateogryListComponent implements OnInit {
     let treeNode: TreeNode[] = [];
     this.categoryService.getCategories().subscribe((categories) => {
       this.categories = categories;
-
       let countL1: number = 0;
       for (const categoryL1 of this.categories === null ? [] : this.categories) {
         let dataL1 = {
           id: categoryL1.id,
           name: categoryL1.name,
         };
-        let countL2: number = 0;
-        let childrenL1: TreeNode[] = [];
-        for(const categoryL2 of categoryL1.subCategories === null ? [] : categoryL1.subCategories) {
-          let dataL2 = {
-            id: categoryL2.id,
-            name: categoryL2.name,
-          };
-          let childrenL2: TreeNode[] = [];
-          for(const categoryL3 of categoryL2.subCategories === null ? [] : categoryL2.subCategories) {
-            let dataL3 = {
-              id: categoryL3.id,
-              name: categoryL3.name,
-            };
-            childrenL2.push({data: dataL3, children: []});
-          }
-          childrenL1.push({data: dataL2, children: childrenL2});
-          childrenL1[countL2].expanded = true;
-          countL2++;
-        }
-        treeNode.push({ data: dataL1, children: childrenL1 });
+        treeNode.push({ data: dataL1});
         treeNode[countL1].expanded = true;
         countL1++;
       }
-
       this.categoriesTreeNode = treeNode;
     });
-
-
   }
 
   search() {
@@ -74,7 +49,6 @@ export class CateogryListComponent implements OnInit {
   }
 
   delete(id: string) {
-    console.log(id);
     this.categoryService.delete(id).subscribe(res => {
       this.categoriesTreeNode.map((category, i) => {
         if (id === category.data.id) {
@@ -83,6 +57,5 @@ export class CateogryListComponent implements OnInit {
         }
       });
     });
-
   }
 }
