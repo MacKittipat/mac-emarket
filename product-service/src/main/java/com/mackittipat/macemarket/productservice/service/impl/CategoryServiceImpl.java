@@ -31,6 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
         .flatMap(
             category -> {
               if (category.getLevel() == 1) {
+                // If category is level 1 then find parentCategory level 0
                 return categoryRepo
                     .findById(category.getParentLevel0().getId())
                     .map(
@@ -38,7 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
                           category.setParentLevel0(categoryMapper.entityToDto(parentCategoryL0));
                           return category;
                         });
+
               } else if (category.getLevel() == 2) {
+                // If category is level 2 then find parentCategory level 0 and 1
                 return categoryRepo
                     .findAllById(
                         Arrays.asList(
@@ -59,7 +62,6 @@ public class CategoryServiceImpl implements CategoryService {
                         })
                     .last();
               }
-
               return Mono.just(category);
             });
   }
