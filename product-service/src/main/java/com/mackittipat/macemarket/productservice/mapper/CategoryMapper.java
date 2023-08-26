@@ -5,12 +5,9 @@ import com.mackittipat.macemarket.productservice.dto.ParentCategoryDto;
 import com.mackittipat.macemarket.productservice.entity.Category;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CategoryMapper {
-
-  @Autowired
 
   String CATEGORY_SEPARATOR = "|";
 
@@ -29,12 +26,10 @@ public interface CategoryMapper {
       displayName = category.getParentLevel0().getName() + CATEGORY_SEPARATOR + category.getName();
     }
     return ParentCategoryDto.builder()
-            .id(category.getId())
-            .name(category.getName())
-            .value(value)
-            .displayName(displayName)
-            .build();
+        .id(category.getId())
+        .name(category.getName())
+        .value(value)
+        .displayName(displayName)
+        .build();
   }
-
-
 }
