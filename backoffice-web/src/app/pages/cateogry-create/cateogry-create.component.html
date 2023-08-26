@@ -37,7 +37,7 @@
     <div class="col-sm-3">
       <select class="form-select" formControlName="parentCategory" id="ddlParentCategory">
         <option value="root">Root</option>
-        <option *ngFor="let parentCategory of parentCategories" [value]="parentCategory.id">{{ parentCategory.name }}</option>
+        <option *ngFor="let parentCatDdlOpt of parentCatDdlOpts" [value]="parentCatDdlOpt.id">{{ parentCatDdlOpt.name }}</option>
       </select>
     </div>
   </div>
