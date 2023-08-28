@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
         .map(category -> categoryMapper.entityToDto(category))
         .flatMap(
             category -> {
-              if (category.getLevel() == 1) {
+              if ("1".equals(category.getLevel())) {
                 // If category is level 1 then find parentCategory level 0
                 return categoryRepo
                     .findById(category.getParentLevel0().getId())
@@ -40,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
                           return category;
                         });
 
-              } else if (category.getLevel() == 2) {
+              } else if ("2".equals(category.getLevel())) {
                 // If category is level 2 then find parentCategory level 0 and 1
                 return categoryRepo
                     .findAllById(
@@ -48,11 +48,11 @@ public class CategoryServiceImpl implements CategoryService {
                             category.getParentLevel0().getId(), category.getParentLevel1().getId()))
                     .map(
                         parentCategory -> {
-                          if (parentCategory.getLevel() == 0) {
+                          if ("0".equals(category.getLevel())) {
                             category.setParentLevel0(categoryMapper.entityToDto(parentCategory));
                             category.getParentLevel0().setParentLevel0(null);
                           }
-                          if (parentCategory.getLevel() == 1) {
+                          if ("1".equals(category.getLevel())) {
                             category.setParentLevel1(categoryMapper.entityToDto(parentCategory));
                             category.getParentLevel0().setParentLevel0(null);
                             category.getParentLevel1().setParentLevel0(null);
@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
     categoryDto.setId(categoryDto.getName().replaceAll(" ", "").toLowerCase());
     categoryDto.setCreatedDateTime(LocalDateTime.now());
     categoryDto.setUpdatedDatetime(LocalDateTime.now());
-    categoryDto.setActive(true);
+    categoryDto.setActive("true");
 
     return categoryRepo
         .insert(categoryMapper.dtoToEntity(categoryDto))

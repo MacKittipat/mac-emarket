@@ -15,11 +15,11 @@ public class CategoryDto {
 
   private String id;
   private String name;
-  private int level;
+  private String level;
   private String description;
   private CategoryDto parentLevel0;
   private CategoryDto parentLevel1;
   private LocalDateTime createdDateTime;
   private LocalDateTime updatedDatetime;
-  private boolean active;
+  private String active;
 }

@@ -8,6 +8,6 @@ import reactor.core.publisher.Flux;
 
 public interface CategoryRepo extends ReactiveMongoRepository<Category, String> {
 
-    @Query("{$or: [{'level': 0}, {'level': 1}]}")
+    @Query("{$or: [{'level': '0'}, {'level': '1'}]}")
     Flux<Category> findAllParent(Sort sort);
 }

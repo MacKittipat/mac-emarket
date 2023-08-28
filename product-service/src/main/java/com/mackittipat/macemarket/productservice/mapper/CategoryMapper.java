@@ -18,10 +18,10 @@ public interface CategoryMapper {
   default ParentCategoryDto entityToParentCategoryDto(Category category) {
     String value = "";
     String displayName = "";
-    if (category.getLevel() == 0) {
+    if ("0".equals(category.getLevel())) {
       value = category.getId();
       displayName = category.getName();
-    } else if (category.getLevel() == 1) {
+    } else if ("1".equals(category.getLevel())) {
       value = category.getId();
       displayName = category.getParentLevel0().getName() + CATEGORY_SEPARATOR + category.getName();
     }
@@ -30,6 +30,7 @@ public interface CategoryMapper {
         .name(category.getName())
         .value(value)
         .displayName(displayName)
+        .level(category.getLevel())
         .build();
   }
 }

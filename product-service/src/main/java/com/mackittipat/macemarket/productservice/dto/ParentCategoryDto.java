@@ -14,5 +14,5 @@ public class ParentCategoryDto {
     private String name;
     private String value;
     private String displayName;
-    private int level;
+    private String level;
 }

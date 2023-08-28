@@ -18,7 +18,7 @@ public class Category {
 
   @Id private String id;
   private String name;
-  private int level;
+  private String level;
   private String description;
   private Category parentLevel0;
   private Category parentLevel1;
