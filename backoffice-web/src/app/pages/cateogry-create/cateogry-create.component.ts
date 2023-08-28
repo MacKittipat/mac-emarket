@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {switchMap} from 'rxjs';
 import {Category} from 'src/app/dto/category';
+import { ParentCategory } from 'src/app/dto/parent-category';
 import {CategoryService} from 'src/app/services/category.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class CateogryCreateComponent implements OnInit {
 
   showSuccess: boolean = false;
   showError: boolean = false;
-  parentCatDdlOpts: Category[] = [];
+  parentCatDdlOpts: ParentCategory[] = [];
 
   createCategoryForm = this.fb.group({
     name: ['', Validators.required],
@@ -28,28 +29,9 @@ export class CateogryCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe((categoriesRes) => {
-      categoriesRes.map((categoryRes) => {
-
-        let id = '';
-        let name = '';
-
-        if (categoryRes.level === 0) {
-          id = categoryRes.id;
-          name = categoryRes.name;
-        } else if (categoryRes.level === 1) {
-          id = `${categoryRes.id}`;
-          name = `${categoryRes.parentLevel0.name}>>${categoryRes.name}`;
-        } else if (categoryRes.level === 2) {
-          id = `${categoryRes.id}`;
-          name = `${categoryRes.parentLevel0.name}>>${categoryRes.parentLevel1.name}>>${categoryRes.name}`;
-        }
-
-        this.parentCatDdlOpts.push({
-          id: id,
-          name: name
-        } as Category);
-      });
+    this.categoryService.findAllParents().subscribe((parentsRes) => {
+      console.log(parentsRes)
+      this.parentCatDdlOpts = parentsRes;
     });
   }
 
@@ -60,20 +42,20 @@ export class CateogryCreateComponent implements OnInit {
         this.createCategoryForm.get('parentCategory')?.value || '';
       this.categoryService.getCategoryById(selectedParentCategoryId).pipe(
         switchMap((selectedParentCategory) => {
-          categorySave.level = 0;
+          categorySave.level = '0';
           if (
             selectedParentCategoryId !== 'root' &&
-            selectedParentCategory.level === 0
+            selectedParentCategory.level === '0'
           ) {
-            categorySave.level = 1;
+            categorySave.level = '1';
             categorySave.parentLevel0 = {} as Category;
             categorySave.parentLevel0.id = selectedParentCategory.id;
             categorySave.parentLevel0.name = selectedParentCategory.name;
           } else if (
             selectedParentCategoryId !== 'root' &&
-            selectedParentCategory.level === 1
+            selectedParentCategory.level === '1'
           ) {
-            categorySave.level = 2;
+            categorySave.level = '2';
             categorySave.parentLevel0 = {} as Category;
             categorySave.parentLevel0.id = selectedParentCategory.parentLevel0.id;
             categorySave.parentLevel0.name = selectedParentCategory.parentLevel0.name;
@@ -89,6 +71,7 @@ export class CateogryCreateComponent implements OnInit {
           this.createCategoryForm.reset();
           this.createCategoryForm.get('parentCategory')?.setValue('root');
           this.showSuccess = true;
+          this.ngOnInit();
         },
         error: (e: Error) => {
           console.error('Create category error', e);

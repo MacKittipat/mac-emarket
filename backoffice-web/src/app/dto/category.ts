@@ -1,7 +1,7 @@
 export interface Category {
   id: string;
   name: string;
-  level: number;
+  level: string;
   parentLevel0: Category;
   parentLevel1: Category;
   createdDateTime: string;

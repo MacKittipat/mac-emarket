@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Category } from '../dto/category';
+import { ParentCategory } from '../dto/parent-category';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,10 @@ export class CategoryService {
 
   getCategoryById(id: string) {
     return this.http.get<Category>(environment.apiUrl + 'categories/' + id);
+  }
+
+  findAllParents() {
+    return this.http.get<ParentCategory[]>(environment.apiUrl + 'categories/parents');
   }
 
   create(category: Category) {
