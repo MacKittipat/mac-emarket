@@ -16,4 +16,6 @@ public interface ProductService {
     Mono<ProductDto> create(ProductDto productDto);
 
     Mono<ProductDto> update(ProductDto productDto);
+
+    Mono<Void> delete(String id);
 }

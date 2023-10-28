@@ -20,57 +20,60 @@ import java.time.LocalDateTime;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepo productRepo;
+  @Autowired private ProductRepo productRepo;
 
-    @Autowired
-    private ProductMapper productMapper;
+  @Autowired private ProductMapper productMapper;
 
-    @Override
-    public Mono<ProductDto> findById(String id) {
-        return productRepo.findById(id).map(product -> productMapper.entityToDto(product));
+  @Override
+  public Mono<ProductDto> findById(String id) {
+    return productRepo.findById(id).map(product -> productMapper.entityToDto(product));
+  }
+
+  @Override
+  public Flux<ProductDto> findAll() {
+    return productRepo.findAll().map(product -> productMapper.entityToDto(product));
+  }
+
+  @Override
+  public Flux<ProductDto> search(ProductSearchDto productSearchDto) {
+    Query query = new Query();
+
+    if (StringUtils.isNoneBlank(productSearchDto.getName())) {
+      query.addCriteria(Criteria.where("name").is(productSearchDto.getName()));
     }
 
-    @Override
-    public Flux<ProductDto> findAll() {
-        return productRepo.findAll().map(product -> productMapper.entityToDto(product));
+    if (StringUtils.isNoneBlank(productSearchDto.getSku())) {
+      query.addCriteria(Criteria.where("sku").is(productSearchDto.getSku()));
     }
 
-    @Override
-    public Flux<ProductDto> search(ProductSearchDto productSearchDto) {
-        Query query = new Query();
-
-        if (StringUtils.isNoneBlank(productSearchDto.getName())) {
-            query.addCriteria(Criteria.where("name").is(productSearchDto.getName()));
-        }
-
-        if (StringUtils.isNoneBlank(productSearchDto.getSku())) {
-            query.addCriteria(Criteria.where("sku").is(productSearchDto.getSku()));
-        }
-
-        if (StringUtils.isNoneBlank(productSearchDto.getPrice())) {
-            query.addCriteria(Criteria.where("price").is(Double.valueOf(productSearchDto.getPrice())));
-        }
-
-        log.info("Searching with query {}", query.toString());
-        return productRepo.search(query).map(product -> productMapper.entityToDto(product));
+    if (StringUtils.isNoneBlank(productSearchDto.getPrice())) {
+      query.addCriteria(Criteria.where("price").is(Double.valueOf(productSearchDto.getPrice())));
     }
 
-    @Override
-    public Mono<ProductDto> create(ProductDto productDto) {
-        productDto.setCreatedDateTime(LocalDateTime.now());
+    log.info("Searching with query {}", query.toString());
+    return productRepo.search(query).map(product -> productMapper.entityToDto(product));
+  }
 
-        return productRepo
-                .insert(productMapper.dtoToEntity(productDto))
-                .map(product -> productMapper.entityToDto(product));
-    }
+  @Override
+  public Mono<ProductDto> create(ProductDto productDto) {
+    productDto.setCreatedDateTime(LocalDateTime.now());
 
-    @Override
-    public Mono<ProductDto> update(ProductDto productDto) {
-        productDto.setUpdatedDatetime(LocalDateTime.now());
+    return productRepo
+        .insert(productMapper.dtoToEntity(productDto))
+        .map(product -> productMapper.entityToDto(product));
+  }
 
-        return productRepo
-                .save(productMapper.dtoToEntity(productDto))
-                .map(product -> productMapper.entityToDto(product));
-    }
+  @Override
+  public Mono<ProductDto> update(ProductDto productDto) {
+    productDto.setUpdatedDatetime(LocalDateTime.now());
+
+    return productRepo
+        .save(productMapper.dtoToEntity(productDto))
+        .map(product -> productMapper.entityToDto(product));
+  }
+
+  @Override
+  public Mono<Void> delete(String id) {
+    return productRepo.deleteById(id);
+  }
 }
